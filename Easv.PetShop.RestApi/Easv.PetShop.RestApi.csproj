@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Easv.PetShop.Core.Entity\Easv.PetShop.Core.Entity.csproj" />
+    <ProjectReference Include="..\Easv.PetShop.Core\Easv.PetShop.Core.csproj" />
+    <ProjectReference Include="..\Easv.PetShop.Infrastructure.Data\Easv.PetShop.Infrastructure.Data.csproj" />
+  </ItemGroup>
+
+</Project>
