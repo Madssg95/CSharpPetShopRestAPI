@@ -22,7 +22,7 @@ namespace Easv.PetShop.Core.Application_Service.Impl
             return pet;
         }
 
-        public Pet NewPet(string name, string type, DateTime birthday, DateTime soldDate, string color, string previousOwner, double price)
+        public Pet NewPet(string name, string type, DateTime birthday, DateTime soldDate, string color, Owner previousOwner, double price)
         {
             var newPet = new Pet()
             {
