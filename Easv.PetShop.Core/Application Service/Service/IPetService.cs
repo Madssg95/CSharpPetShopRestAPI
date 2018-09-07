@@ -9,7 +9,7 @@ namespace Easv.PetShop.Core.Application_Service.Service
 
         //Create
         Pet AddPet(Pet pet);
-        Pet NewPet(string name, string type, DateTime birthdate, DateTime soldDate, string color, string previousOwner, double price);
+        Pet NewPet(string name, string type, DateTime birthdate, DateTime soldDate, string color, Owner previousOwner, double price);
 
         //Read
         List<Pet> GetPets();
