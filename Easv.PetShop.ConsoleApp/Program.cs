@@ -5,6 +5,7 @@ using Easv.PetShop.Infrastructure.Data;
 using Easv.PetShop.Infrastructure.Data.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Easv.PetShop.Core.Application_Service.Impl;
 
 namespace Easv.PetShop.ConsoleApp
 {

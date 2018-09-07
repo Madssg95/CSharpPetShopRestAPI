@@ -1,11 +1,11 @@
-﻿using Easv.PetShop.Core.Application_Service.Service;
-using Easv.PetShop.Core.Domain_Service;
-using Easv.PetShop.Core.Entity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Easv.PetShop.Core.Application_Service.Service;
+using Easv.PetShop.Core.Domain_Service;
+using Easv.PetShop.Core.Entity;
 
-namespace Easv.PetShop.Core.Application_Service
+namespace Easv.PetShop.Core.Application_Service.Impl
 {
     public class PetService : IPetService
     {

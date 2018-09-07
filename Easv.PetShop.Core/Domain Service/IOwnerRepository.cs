@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using Easv.PetShop.Core.Entity;
+
 namespace Easv.PetShop.Core.Domain_Service
 {
     public interface IOwnerRepository
@@ -6,7 +9,7 @@ namespace Easv.PetShop.Core.Domain_Service
         Owner CreateOwner(Owner owner);
 
         //Read
-        IEnumerable<Pet> ReadOwner();
+        IEnumerable<Owner> ReadOwner();
         Owner ReadOwnerById(int id);
 
         //Update
