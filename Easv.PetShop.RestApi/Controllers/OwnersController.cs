@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Easv.PetShop.Core.Application_Service.Service;
 using Easv.PetShop.Core.Entity;
@@ -12,7 +10,6 @@ namespace Easv.PetShop.RestApi.Controllers
     [ApiController]
     public class OwnersController : ControllerBase
     {
-        
        private readonly IOwnerService _ownerService;
 
        public OwnersController(IOwnerService ownerService)
@@ -20,5 +17,33 @@ namespace Easv.PetShop.RestApi.Controllers
           _ownerService = ownerService;
        }
         
+        // GET api/values
+        [HttpGet]
+        public ActionResult<IEnumerable<Owner>> Get()
+        {
+            return _ownerService.GetOwners();
+        }
+        
+        // GET api/values/5
+        [HttpGet("{id}")]
+        public ActionResult<Owner> Get(int id)
+        {
+            return _ownerService.GetOwnerById(id);
+        }
+        
+        // POST api/values
+        [HttpPost]
+        public ActionResult<Owner> Post([FromBody] Owner owner)
+        {
+            return _ownerService.AddOwner(owner);
+        }
+        
+        // PUT api/values/5
+        [HttpPut("{id}")]
+        public Owner Put(int id, [FromBody] Owner owner)
+        {
+            _ownerService.UpdateOwner(owner);
+            return owner;
+        }
     }
 }
