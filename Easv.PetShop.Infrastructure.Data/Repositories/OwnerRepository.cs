@@ -13,7 +13,7 @@ namespace Easv.PetShop.Infrastructure.Data.Repositories
             {
                 Name = "Mads",
                 Address = "Petvej 10",
-                PhoneNumber = 01919191,
+                PhoneNumber = 01919191
             });
         }
 

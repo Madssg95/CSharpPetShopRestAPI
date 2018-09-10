@@ -42,20 +42,14 @@ namespace Easv.PetShop.RestApi.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public Pet Put(int id, [FromBody] Pet pet)
+        public ActionResult<Pet> Put(int id, [FromBody] Pet pet)
         {
-            var petToUpdate = _petService.GetPetById(id);
-            if ( petToUpdate != null)
+            if (id < 1 || id != pet.Id )
             {
-                petToUpdate.Id = id;
-                petToUpdate.Name = pet.Name;
-                petToUpdate.Type = pet.Type;
-                petToUpdate.Birthday = pet.Birthday;
-                petToUpdate.SoldDate = pet.SoldDate;
-                petToUpdate.PreviousOwner = pet.PreviousOwner;
-                petToUpdate.Price = pet.Price;
+                return BadRequest("Parameter Id and owner Id must be the same");
             }
-            return petToUpdate;
+            
+            return Ok(_petService.UpdatePet(pet));
             
             
         }
