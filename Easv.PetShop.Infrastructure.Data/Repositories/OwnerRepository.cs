@@ -7,6 +7,16 @@ namespace Easv.PetShop.Infrastructure.Data.Repositories
 {
     public class OwnerRepository : IOwnerRepository
     {
+        public OwnerRepository()
+        {
+            CreateOwner(new Owner()
+            {
+                Name = "Mads",
+                Address = "Petvej 10",
+                PhoneNumber = 01919191,
+            });
+        }
+
         public Owner CreateOwner(Owner owner)
         {
             owner.Id = FakeDB.OwnerId++;
