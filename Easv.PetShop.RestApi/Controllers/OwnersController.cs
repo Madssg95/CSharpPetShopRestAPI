@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Easv.PetShop.Core.Application_Service.Service;
@@ -35,7 +36,16 @@ namespace Easv.PetShop.RestApi.Controllers
         [HttpPost]
         public ActionResult<Owner> Post([FromBody] Owner owner)
         {
-            return _ownerService.AddOwner(owner);
+            try
+            {
+                _ownerService.AddOwner(owner);
+                return Ok(_ownerService.AddOwner(owner));
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
         
         // PUT api/values/5
@@ -53,11 +63,15 @@ namespace Easv.PetShop.RestApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult<Owner> Delete(int id)
         {
-            if (_ownerService.DeleteOwner(id) == null || id < 1)
+            try
             {
-                return StatusCode(404, "Did not find the owner with Id:" + id);
+                return Ok($"The user with the Id: {id} was deleted.");
             }
-            return Ok($"The user with the Id: {id} was deleted.");
+            catch (Exception e)
+            {
+                return StatusCode(404, e.Message);
+            }
+            
         }
     }
 }

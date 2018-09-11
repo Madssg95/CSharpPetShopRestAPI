@@ -18,6 +18,20 @@ namespace Easv.PetShop.Core.Application_Service.Impl
 
         public Pet AddPet(Pet pet)
         {
+            if (pet.Name.Length < 2)
+            {
+                throw new Exception("The name must at least have two characters.");
+            }
+
+            if (pet.Type == null || pet.Color  == null)
+            {
+                throw new Exception("You are not allowed to enter empty credentials.");
+            }
+
+            if (pet.Price < 0)
+            {
+                throw new Exception("The pet's price can not be lower than 0.");
+            }
             _petRepo.CreatePet(pet);
             return pet;
         }

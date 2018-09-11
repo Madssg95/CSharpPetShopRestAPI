@@ -8,7 +8,7 @@ namespace Easv.PetShop.Infrastructure.Data
     public class FakeDB
     {
         public static int PetId = 1;
-        public static int OwnerId = 2;
+        public static int OwnerId = 1;
         public static IEnumerable<Pet> ListOfPets = new List<Pet>();
         public static IEnumerable<Owner> ListOfOwners = new List<Owner>();
     }

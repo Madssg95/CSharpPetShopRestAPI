@@ -37,7 +37,15 @@ namespace Easv.PetShop.RestApi.Controllers
         [HttpPost]
         public ActionResult<Pet> Post([FromBody] Pet pet)
         {
-            return _petService.AddPet(pet);
+            try
+            {
+                return _petService.AddPet(pet);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
 
         // PUT api/values/5
@@ -56,9 +64,13 @@ namespace Easv.PetShop.RestApi.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public Pet Delete(int id)
+        public ActionResult<Pet> Delete(int id)
         {
-            return _petService.DeletePet(id);
+            if (_petService.DeletePet(id) == null || id < 1)
+            {
+                return StatusCode(404, "Did not find the owner with Id:" + id);
+            }
+            return Ok($"The user with the Id: {id} was deleted.");
         }
     }
 }
