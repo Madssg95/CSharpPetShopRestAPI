@@ -29,7 +29,14 @@ namespace Easv.PetShop.RestApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<Owner> Get(int id)
         {
-            return _ownerService.GetOwnerById(id);
+            try
+            {
+                return Ok(_ownerService.GetOwnerById(id));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
         
         // POST api/values
@@ -38,7 +45,6 @@ namespace Easv.PetShop.RestApi.Controllers
         {
             try
             {
-                _ownerService.AddOwner(owner);
                 return Ok(_ownerService.AddOwner(owner));
 
             }
@@ -52,11 +58,16 @@ namespace Easv.PetShop.RestApi.Controllers
         [HttpPut("{id}")]
         public ActionResult<Owner> Put(int id, [FromBody] Owner owner)
         {
-            if (id < 1 || id != owner.Id )
+            owner.Id = id;
+            try
             {
-                return BadRequest("Parameter Id and owner Id must be the same");
+                return Ok(_ownerService.UpdateOwner(owner));
             }
-            return Ok(_ownerService.UpdateOwner(owner));
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
         
         // DELETE api/values/5
@@ -65,6 +76,7 @@ namespace Easv.PetShop.RestApi.Controllers
         {
             try
             {
+                _ownerService.DeleteOwner(id);
                 return Ok($"The user with the Id: {id} was deleted.");
             }
             catch (Exception e)

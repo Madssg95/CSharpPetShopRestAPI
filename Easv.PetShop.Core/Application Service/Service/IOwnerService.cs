@@ -8,7 +8,7 @@ namespace Easv.PetShop.Core.Application_Service.Service
     {
         //Create
         Owner AddOwner(Owner owner);
-        Owner NewOwner(string name, string address, int phoneNumber, List<Pet> pets );
+        Owner NewOwner(string firstname, string lastname, string address, int phoneNumber, List<Pet> pets );
 
         //Read
         List<Owner> GetOwners();

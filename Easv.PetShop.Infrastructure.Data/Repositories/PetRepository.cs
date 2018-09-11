@@ -44,17 +44,8 @@ namespace Easv.PetShop.Infrastructure.Data.Repositories
         {
             var pets = ReadPets();
             var pet = pets.FirstOrDefault(pet1 => pet1.Id == updatePet.Id);
-
-            pet.Name = updatePet.Name;
-            pet.Type = updatePet.Type;
-            pet.Birthday = updatePet.Birthday;
-            pet.SoldDate = updatePet.SoldDate;
-            pet.Color = updatePet.Color;
-            pet.PreviousOwner = updatePet.PreviousOwner;
-            pet.Price = updatePet.Price;
-
             FakeDB.ListOfPets = pets;
-            return updatePet;
+            return pet;
         }
     }
 }

@@ -30,7 +30,15 @@ namespace Easv.PetShop.RestApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<Pet> Get(int id)
         {
-            return _petService.GetPetById(id);
+            try
+            {
+                return Ok(_petService.GetPetById(id));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
 
         // POST api/values
@@ -52,12 +60,16 @@ namespace Easv.PetShop.RestApi.Controllers
         [HttpPut("{id}")]
         public ActionResult<Pet> Put(int id, [FromBody] Pet pet)
         {
-            if (id < 1 || id != pet.Id )
+            pet.Id = id;
+            try
             {
-                return BadRequest("Parameter Id and owner Id must be the same");
+                return Ok(_petService.UpdatePet(pet));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
             
-            return Ok(_petService.UpdatePet(pet));
             
             
         }

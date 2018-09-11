@@ -23,14 +23,29 @@ namespace Easv.PetShop.Core.Application_Service.Impl
                 throw new Exception("The name must at least have two characters.");
             }
 
-            if (pet.Type == null || pet.Color  == null)
+            if (pet.Type == null)
             {
-                throw new Exception("You are not allowed to enter empty credentials.");
+                throw new Exception("Please enter a type.");
+            }
+
+            if (pet.Color == null)
+            {
+                throw new Exception("Please enter a color."); 
             }
 
             if (pet.Price < 0)
             {
                 throw new Exception("The pet's price can not be lower than 0.");
+            }
+
+            if (pet.Birthday > DateTime.Today || pet.SoldDate > DateTime.Today)
+            {
+                throw new Exception("The date you have chosen is in the future.");
+            }
+            
+            if (pet.Birthday > pet.SoldDate)
+            {
+                throw new Exception("The sold date has to be after the birthday.");
             }
             _petRepo.CreatePet(pet);
             return pet;
@@ -53,6 +68,10 @@ namespace Easv.PetShop.Core.Application_Service.Impl
 
         public Pet GetPetById(int id)
         {
+            if (id < 1 || _petRepo.ReadByID(id) == null)
+            {
+                throw new Exception("There was no results found for the id" + id);
+            }
             return _petRepo.ReadByID(id);
         }
 
@@ -85,11 +104,32 @@ namespace Easv.PetShop.Core.Application_Service.Impl
         public Pet UpdatePet(Pet pet)
         {
             var changedPet = _petRepo.ReadByID(pet.Id);
-            changedPet.Name = pet.Name;
-            changedPet.Type = pet.Type;
+            if (changedPet == null)
+            {
+                throw new Exception("The pet you searched for could not be found.");
+            }
+            
+            if (pet.Name != null)
+            {
+                changedPet.Name = pet.Name;
+            }
+
+            if (pet.Type != null)
+            {
+                changedPet.Type = pet.Type;
+            }
+
+            if (pet.Color != null)
+            {
+                changedPet.Color = pet.Color;
+            }
+            
+            if (pet.Birthday > pet.SoldDate)
+            {
+                throw new Exception("The sold date has to be after the birthday.");
+            }
             changedPet.Birthday = pet.Birthday;
             changedPet.SoldDate = pet.SoldDate;
-            changedPet.Color = pet.Color;
             changedPet.PreviousOwner = pet.PreviousOwner;
             changedPet.Price = pet.Price;
             _petRepo.UpdatePet(changedPet);

@@ -31,14 +31,9 @@ namespace Easv.PetShop.Infrastructure.Data.Repositories
 
         public Owner UpdateOwner(Owner updateOwner)
         {
-            var owner = ReadOwner().FirstOrDefault(own => own.Id == updateOwner.Id);
-            if (owner == null) return owner;
-            owner.Id = updateOwner.Id;
-            owner.Name = updateOwner.Name;
-            owner.Address = updateOwner.Address;
-            owner.PhoneNumber = updateOwner.PhoneNumber;
-            owner.Pets = updateOwner.Pets;
-
+            var owners = ReadOwner();
+            var owner = owners.FirstOrDefault(owner1 => owner1.Id == updateOwner.Id);
+            FakeDB.ListOfOwners = owners;
             return owner;
         }
 

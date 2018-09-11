@@ -19,9 +19,9 @@ namespace Easv.PetShop.Core.Application_Service.Impl
 
         public Owner AddOwner(Owner owner)
         {
-            if (owner.Name.Length < 2)
+            if (owner.FirstName.Length < 2 || owner.LastName.Length < 2)
             {
-                throw new Exception("The name must at least have two characters.");
+                throw new Exception("Both firstname and lastname must at least have two characters.");
             }
 
             if (owner.Address.Length == 0)
@@ -36,11 +36,12 @@ namespace Easv.PetShop.Core.Application_Service.Impl
             return _ownerRepository.CreateOwner(owner);
         }
 
-        public Owner NewOwner(string name, string address, int phoneNumber, List<Pet> pets)
+        public Owner NewOwner(string firstname, string lastname, string address, int phoneNumber, List<Pet> pets)
         {
             var owner = new Owner()
             {
-                Name = name,
+                FirstName = firstname,
+                LastName = lastname,
                 Address = address,
                 PhoneNumber = phoneNumber,
                 Pets = pets
@@ -55,25 +56,40 @@ namespace Easv.PetShop.Core.Application_Service.Impl
 
         public Owner GetOwnerById(int id)
         {
+            if (id < 1 || _ownerRepository.ReadOwnerById(id) == null)
+            {
+                throw new Exception("There was no results found for the id" + id);
+            }
             return _ownerRepository.ReadOwnerById(id);
         }
 
-        public Owner UpdateOwner(Owner owner)
+        public Owner UpdateOwner(Owner updateOwner)
         {
-            if (owner.Name.Length < 2)
+            
+            var owner = _ownerRepository.ReadOwnerById(updateOwner.Id);
+            if (updateOwner == null)
             {
-                throw new Exception("The name must at least have two characters.");
+                throw new Exception("The owner you searched for could not be found.");
             }
 
-            if (owner.Address.Length == 0)
+            if (updateOwner.FirstName != null)
             {
-                throw new Exception("The address you have entered is invalid.");
+                owner.FirstName = updateOwner.FirstName;
             }
 
-            if (owner.PhoneNumber.ToString().Length < 8)
+            if (updateOwner.LastName != null)
             {
-                throw new Exception("The phone number must at least contain 8 digits.");
+                owner.LastName = updateOwner.LastName;
             }
+
+            if (updateOwner.Address != null)
+            {
+                owner.Address = updateOwner.Address;
+
+            }
+            owner.PhoneNumber = updateOwner.PhoneNumber;
+            owner.Pets = updateOwner.Pets;
+
             return _ownerRepository.UpdateOwner(owner);
         }
 
