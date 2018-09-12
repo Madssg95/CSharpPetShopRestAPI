@@ -10,10 +10,12 @@ namespace Easv.PetShop.Core.Application_Service.Impl
     public class PetService : IPetService
     {
         readonly IPetRepository _petRepo;
+        readonly IOwnerRepository _ownerRepo;
 
-        public PetService(IPetRepository petRepository)
+        public PetService(IPetRepository petRepository, IOwnerRepository ownerRepository)
         {
             _petRepo = petRepository;
+            _ownerRepo = ownerRepository;
         }
 
         public Pet AddPet(Pet pet)
@@ -47,6 +49,12 @@ namespace Easv.PetShop.Core.Application_Service.Impl
             {
                 throw new Exception("The sold date has to be after the birthday.");
             }
+
+            if (_petRepo.ReadByID(pet.PreviousOwner.Id) == null)
+            {
+                throw new Exception("Please enter a valid owner Id.");
+            }
+            
             _petRepo.CreatePet(pet);
             return pet;
         }
@@ -72,7 +80,14 @@ namespace Easv.PetShop.Core.Application_Service.Impl
             {
                 throw new Exception("There was no results found for the id" + id);
             }
-            return _petRepo.ReadByID(id);
+
+            var pet = _petRepo.ReadByID(id);
+            if (pet.PreviousOwner != null)
+            {
+                pet.PreviousOwner = _ownerRepo.ReadOwnerById(pet.PreviousOwner.Id);            
+            }
+            
+            return pet;
         }
 
         public List<Pet> GetPets()
@@ -128,6 +143,12 @@ namespace Easv.PetShop.Core.Application_Service.Impl
             {
                 throw new Exception("The sold date has to be after the birthday.");
             }
+            
+            if (_petRepo.ReadByID(pet.PreviousOwner.Id) == null)
+            {
+                throw new Exception("Please enter a valid owner Id.");
+            }
+            
             changedPet.Birthday = pet.Birthday;
             changedPet.SoldDate = pet.SoldDate;
             changedPet.PreviousOwner = pet.PreviousOwner;

@@ -13,7 +13,5 @@ namespace Easv.PetShop.Core.Entity
         public string Address { get; set; }
 
         public int PhoneNumber { get; set; }
-
-        public List<Pet> Pets { get; set; }
     }
 }

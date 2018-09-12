@@ -36,15 +36,14 @@ namespace Easv.PetShop.Core.Application_Service.Impl
             return _ownerRepository.CreateOwner(owner);
         }
 
-        public Owner NewOwner(string firstname, string lastname, string address, int phoneNumber, List<Pet> pets)
+        public Owner NewOwner(string firstname, string lastname, string address, int phoneNumber)
         {
             var owner = new Owner()
             {
                 FirstName = firstname,
                 LastName = lastname,
                 Address = address,
-                PhoneNumber = phoneNumber,
-                Pets = pets
+                PhoneNumber = phoneNumber
             };
             return owner;
         }
@@ -88,7 +87,6 @@ namespace Easv.PetShop.Core.Application_Service.Impl
 
             }
             owner.PhoneNumber = updateOwner.PhoneNumber;
-            owner.Pets = updateOwner.Pets;
 
             return _ownerRepository.UpdateOwner(owner);
         }

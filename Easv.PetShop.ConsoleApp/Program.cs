@@ -12,7 +12,7 @@ namespace Easv.PetShop.ConsoleApp
     public class Program
     {
         private static IPetRepository petRepository = new PetRepository();
-        private static IPetService petService = new PetService(petRepository);
+        //private static IPetService petService = new PetService(petRepository);
 
         static void Main(string[] args)
         {

@@ -9,6 +9,39 @@ namespace Easv.PetShop.Infrastructure.Data.Repositories
 {
     public class PetRepository : IPetRepository
     {
+        public PetRepository()
+        {
+            if (FakeDB.ListOfPets.Any()) return;
+
+            var pet1 = new Pet()
+            {
+                Id = FakeDB.PetId++,
+                Name = "Vovse",
+                Type = "Dog",
+                Birthday = DateTime.Now.AddMonths(-6),
+                SoldDate = DateTime.Now.AddMonths(-3),
+                Color = "Black",
+                PreviousOwner = new Owner(){Id = 1},
+                Price = 100
+            };
+            
+            var pet2 = new Pet()
+            {
+                Id = FakeDB.PetId++,
+                Name = "Misse",
+                Type = "Cat",
+                Birthday = DateTime.Now.AddMonths(-10),
+                SoldDate = DateTime.Now.AddMonths(-5),
+                Color = "White",
+                PreviousOwner = new Owner(){Id = 2},
+                Price = 500
+            };
+
+            var pets = FakeDB.ListOfPets.ToList();
+            pets.Add(pet1);
+            pets.Add(pet2);
+            FakeDB.ListOfPets = pets;
+        }
 
         public Pet CreatePet(Pet pet)
         {
