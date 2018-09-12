@@ -31,7 +31,7 @@ namespace Easv.PetShop.RestApi.Controllers
         {
             try
             {
-                return Ok(_ownerService.GetOwnerById(id));
+                return Ok(_ownerService.GetOwnerByIdIncludePets(id));
             }
             catch (Exception e)
             {

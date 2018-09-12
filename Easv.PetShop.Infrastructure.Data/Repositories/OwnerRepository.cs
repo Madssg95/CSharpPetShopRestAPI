@@ -51,9 +51,17 @@ namespace Easv.PetShop.Infrastructure.Data.Repositories
 
         public Owner ReadOwnerById(int id)
         {
-            var owners = FakeDB.ListOfOwners;
-            var matchingOwner = owners.FirstOrDefault(owner => owner.Id == id);
-            return matchingOwner;
+
+            return FakeDB.ListOfOwners.Select(o => new Owner()
+            {
+                Id = o.Id,
+                FirstName = o.FirstName,
+                LastName = o.LastName,
+                Address = o.Address,
+                Pets = o.Pets,
+                PhoneNumber = o.PhoneNumber
+                
+            }).FirstOrDefault(o => o.Id == id);
         }
 
         public Owner UpdateOwner(Owner updateOwner)

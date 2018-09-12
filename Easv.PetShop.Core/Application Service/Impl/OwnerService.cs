@@ -11,10 +11,12 @@ namespace Easv.PetShop.Core.Application_Service.Impl
     public class OwnerService : IOwnerService
     {
         private readonly IOwnerRepository _ownerRepository;
+        private readonly IPetRepository _petRepository;
 
-        public OwnerService(IOwnerRepository ownerRepository)
+        public OwnerService(IOwnerRepository ownerRepository, IPetRepository petRepository)
         {
             _ownerRepository = ownerRepository;
+            _petRepository = petRepository;
         }
 
         public Owner AddOwner(Owner owner)
@@ -36,7 +38,8 @@ namespace Easv.PetShop.Core.Application_Service.Impl
             return _ownerRepository.CreateOwner(owner);
         }
 
-        public Owner NewOwner(string firstname, string lastname, string address, int phoneNumber)
+        /*
+         public Owner NewOwner(string firstname, string lastname, string address, int phoneNumber)
         {
             var owner = new Owner()
             {
@@ -47,6 +50,7 @@ namespace Easv.PetShop.Core.Application_Service.Impl
             };
             return owner;
         }
+        */
 
         public List<Owner> GetOwners()
         {
@@ -59,7 +63,19 @@ namespace Easv.PetShop.Core.Application_Service.Impl
             {
                 throw new Exception("There was no results found for the id" + id);
             }
+
             return _ownerRepository.ReadOwnerById(id);
+        }
+
+        public Owner GetOwnerByIdIncludePets(int id)
+        {
+            if (id < 1 || _ownerRepository.ReadOwnerById(id) == null)
+            {
+                throw new Exception("There was no results found for the id" + id);
+            }
+            var owner = _ownerRepository.ReadOwnerById(id);
+            owner.Pets = _petRepository.ReadPets().Where(pet => pet.PreviousOwner.Id == owner.Id).ToList();
+            return owner;
         }
 
         public Owner UpdateOwner(Owner updateOwner)
@@ -87,6 +103,7 @@ namespace Easv.PetShop.Core.Application_Service.Impl
 
             }
             owner.PhoneNumber = updateOwner.PhoneNumber;
+            owner.Pets = updateOwner.Pets;
 
             return _ownerRepository.UpdateOwner(owner);
         }
