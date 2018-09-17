@@ -17,7 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Easv.PetShop.Core.Entity\Easv.PetShop.Core.Entity.csproj" />
     <ProjectReference Include="..\Easv.PetShop.Core\Easv.PetShop.Core.csproj" />
-    <ProjectReference Include="..\Easv.PetShop.Infrastructure.Data\Easv.PetShop.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\Easv.PetShop.Infrastructure.SQLDB\Easv.PetShop.Infrastructure.SQLDB.csproj" />
   </ItemGroup>
 
 </Project>

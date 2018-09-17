@@ -6,11 +6,12 @@ using Easv.PetShop.Core.Application_Service;
 using Easv.PetShop.Core.Application_Service.Impl;
 using Easv.PetShop.Core.Application_Service.Service;
 using Easv.PetShop.Core.Domain_Service;
-using Easv.PetShop.Infrastructure.Data;
-using Easv.PetShop.Infrastructure.Data.Repositories;
+using Easv.PetShop.Infrastructure.SQLDB;
+using Easv.PetShop.Infrastructure.SQLDB.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -31,6 +32,11 @@ namespace Easv.PetShop.RestApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //not a real sql db, but acts like one 
+            services.AddDbContext<PetShopContext>(
+                opt => opt.UseInMemoryDatabase("database")
+                );
+            
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
