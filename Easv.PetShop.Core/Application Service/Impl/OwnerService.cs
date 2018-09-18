@@ -73,8 +73,7 @@ namespace Easv.PetShop.Core.Application_Service.Impl
             {
                 throw new Exception("There was no results found for the id" + id);
             }
-            var owner = _ownerRepository.ReadOwnerById(id);
-            owner.Pets = _petRepository.ReadPets().Where(pet => pet.PreviousOwner.Id == owner.Id).ToList();
+            var owner = _ownerRepository.ReadOwnerByIdIncludePets(id);
             return owner;
         }
 

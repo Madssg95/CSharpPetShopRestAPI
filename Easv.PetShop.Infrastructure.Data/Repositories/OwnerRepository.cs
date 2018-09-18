@@ -64,6 +64,11 @@ namespace Easv.PetShop.Infrastructure.Data.Repositories
             }).FirstOrDefault(o => o.Id == id);
         }
 
+        public Owner ReadOwnerByIdIncludePets(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Owner UpdateOwner(Owner updateOwner)
         {
             var owners = ReadOwner();

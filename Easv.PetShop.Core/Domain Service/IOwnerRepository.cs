@@ -11,6 +11,7 @@ namespace Easv.PetShop.Core.Domain_Service
         //Read
         IEnumerable<Owner> ReadOwner();
         Owner ReadOwnerById(int id);
+        Owner ReadOwnerByIdIncludePets(int id);
 
         //Update
         Owner UpdateOwner(Owner updateOwner);
