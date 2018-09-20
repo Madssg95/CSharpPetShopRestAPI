@@ -7,6 +7,9 @@ namespace Easv.PetShop.Infrastructure.SQLDB
     {
         public static void SeedDB(PetShopContext ctx)
         {
+            ctx.Database.EnsureDeleted();
+            ctx.Database.EnsureCreated();
+            
             var owner1 = ctx.Owners.Add(new Owner()
             {
                 FirstName = "Karl",
@@ -31,8 +34,9 @@ namespace Easv.PetShop.Infrastructure.SQLDB
                 Birthday = DateTime.Now.AddMonths(-20),
                 SoldDate = DateTime.Now.AddMonths(-5),
                 Color = "black",
-                PreviousOwner = owner1
-            });
+                Owner = owner1,
+                Price = 100
+            }).Entity;
             
             var pet2 = ctx.Pets.Add(new Pet()
             {
@@ -41,8 +45,9 @@ namespace Easv.PetShop.Infrastructure.SQLDB
                 Birthday = DateTime.Now.AddMonths(-30),
                 SoldDate = DateTime.Now.AddMonths(-2),
                 Color = "white",
-                PreviousOwner = owner2
-            });
+                Owner = owner2,
+                Price = 200
+            }).Entity;
             ctx.SaveChanges();
         }
     }

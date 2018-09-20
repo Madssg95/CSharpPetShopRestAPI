@@ -20,9 +20,9 @@ namespace Easv.PetShop.Core.Application_Service.Impl
 
         public Pet AddPet(Pet pet)
         {
-            if (pet.Name.Length < 2)
+            if (pet.Name == null)
             {
-                throw new Exception("The name must at least have two characters.");
+                throw new Exception("Please enter a name");
             }
 
             if (pet.Type == null)
@@ -50,10 +50,14 @@ namespace Easv.PetShop.Core.Application_Service.Impl
                 throw new Exception("The sold date has to be after the birthday.");
             }
 
-            if (_petRepo.ReadByID(pet.PreviousOwner.Id) == null)
+            if (pet.Owner != null)
             {
-                throw new Exception("Please enter a valid owner Id.");
+                if (_petRepo.ReadByID(pet.Owner.Id) == null)
+                {
+                    throw new Exception("Please enter a valid owner Id.");
+                } 
             }
+           
             
             _petRepo.CreatePet(pet);
             return pet;
@@ -68,7 +72,7 @@ namespace Easv.PetShop.Core.Application_Service.Impl
                 Birthday = birthday,
                 SoldDate = soldDate,
                 Color = color,
-                PreviousOwner = previousOwner,
+                Owner = previousOwner,
                 Price = price
             };
             return newPet;
@@ -82,9 +86,9 @@ namespace Easv.PetShop.Core.Application_Service.Impl
             }
 
             var pet = _petRepo.ReadByID(id);
-            if (pet.PreviousOwner != null)
+            if (pet.Owner != null)
             {
-                pet.PreviousOwner = _ownerRepo.ReadOwnerById(pet.PreviousOwner.Id);            
+                pet.Owner = _ownerRepo.ReadOwnerById(pet.Owner.Id);            
             }
             
             return pet;
@@ -144,14 +148,14 @@ namespace Easv.PetShop.Core.Application_Service.Impl
                 throw new Exception("The sold date has to be after the birthday.");
             }
             
-            if (_petRepo.ReadByID(pet.PreviousOwner.Id) == null)
+            if (_petRepo.ReadByID(pet.Owner.Id) == null)
             {
                 throw new Exception("Please enter a valid owner Id.");
             }
             
             changedPet.Birthday = pet.Birthday;
             changedPet.SoldDate = pet.SoldDate;
-            changedPet.PreviousOwner = pet.PreviousOwner;
+            changedPet.Owner = pet.Owner;
             changedPet.Price = pet.Price;
             _petRepo.UpdatePet(changedPet);
             return changedPet;

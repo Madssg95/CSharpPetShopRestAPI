@@ -23,7 +23,7 @@ namespace Easv.PetShop.RestApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Pet>> Get()
         {
-            return _petService.GetPets();
+            return Ok(_petService.GetPets());
         }
 
         // GET api/values/5
@@ -69,9 +69,6 @@ namespace Easv.PetShop.RestApi.Controllers
             {
                 return BadRequest(e.Message);
             }
-            
-            
-            
         }
 
         // DELETE api/values/5

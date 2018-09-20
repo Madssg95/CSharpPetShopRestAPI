@@ -16,6 +16,11 @@ namespace Easv.PetShop.Infrastructure.SQLDB.Repositories
 
         public Pet CreatePet(Pet pet)
         {
+            if (pet.Owner != null)
+            {
+                _ctx.Attach(pet.Owner);
+            }
+            
             var newPet = _ctx.Add(pet).Entity;
             _ctx.SaveChanges();
             return newPet;

@@ -21,12 +21,12 @@ namespace Easv.PetShop.Core.Application_Service.Impl
 
         public Owner AddOwner(Owner owner)
         {
-            if (owner.FirstName.Length < 2 || owner.LastName.Length < 2)
+            if (owner.FirstName.Length == null || owner.LastName.Length == null)
             {
-                throw new Exception("Both firstname and lastname must at least have two characters.");
+                throw new Exception("Both firstname and lastname must be entered");
             }
 
-            if (owner.Address.Length == 0)
+            if (owner.Address == null)
             {
                 throw new Exception("The address you have entered is invalid.");
             }

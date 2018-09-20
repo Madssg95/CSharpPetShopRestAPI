@@ -26,11 +26,11 @@ namespace Easv.PetShop.RestApi
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
-            Environment = env;
+            //Environment = env;
         }
 
         public IConfiguration Configuration { get; }
-        public IHostingEnvironment Environment { get;  }
+        //public IHostingEnvironment Environment { get;  }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -67,8 +67,7 @@ namespace Easv.PetShop.RestApi
                 using (var scope = app.ApplicationServices.CreateScope())
                 {
                     var ctx = scope.ServiceProvider.GetService<PetShopContext>();
-                    ctx.Database.EnsureDeleted();
-                    ctx.Database.EnsureCreated();
+                    
                     DBInitializor.SeedDB(ctx);
                 }
             }

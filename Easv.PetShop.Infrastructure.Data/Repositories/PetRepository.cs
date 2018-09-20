@@ -21,7 +21,7 @@ namespace Easv.PetShop.Infrastructure.Data.Repositories
                 Birthday = DateTime.Now.AddMonths(-6),
                 SoldDate = DateTime.Now.AddMonths(-3),
                 Color = "Black",
-                PreviousOwner = new Owner(){Id = 1},
+                Owner = new Owner(){Id = 1},
                 Price = 100
             };
             
@@ -33,7 +33,7 @@ namespace Easv.PetShop.Infrastructure.Data.Repositories
                 Birthday = DateTime.Now.AddMonths(-10),
                 SoldDate = DateTime.Now.AddMonths(-5),
                 Color = "White",
-                PreviousOwner = new Owner(){Id = 2},
+                Owner = new Owner(){Id = 2},
                 Price = 500
             };
 
