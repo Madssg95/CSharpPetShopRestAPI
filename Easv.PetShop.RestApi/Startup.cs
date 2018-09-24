@@ -41,12 +41,17 @@ namespace Easv.PetShop.RestApi
                 opt => opt.UseInMemoryDatabase("database")
                 );
              */
-
+             
             services.AddDbContext<PetShopContext>(
                 opt => opt.UseSqlite("Data Source = PetShop.db")
             );
             
-            
+            /*
+            // Azure SQL database:
+            services.AddDbContext<PetShopContext>(opt =>
+                     opt.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
+            */
+
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
@@ -56,6 +61,8 @@ namespace Easv.PetShop.RestApi
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,6 +83,7 @@ namespace Easv.PetShop.RestApi
                 app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

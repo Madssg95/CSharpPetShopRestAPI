@@ -21,7 +21,7 @@ namespace Easv.PetShop.RestApi.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Pet>> Get()
+        public ActionResult<IEnumerable<Pet>> Get([FromQuery] Filter filter)
         {
             return Ok(_petService.GetPets());
         }

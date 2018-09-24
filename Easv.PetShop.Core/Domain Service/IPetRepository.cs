@@ -15,7 +15,7 @@ namespace Easv.PetShop.Core.Domain_Service
         Pet ReadByID(int id);
 
         //Update
-        Pet UpdatePet(Pet updatePet);
+        Pet UpdatePet(Pet pet);
 
         //Delete
         Pet DeletePet(int id);

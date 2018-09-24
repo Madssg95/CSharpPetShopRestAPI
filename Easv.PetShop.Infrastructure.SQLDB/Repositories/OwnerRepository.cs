@@ -44,8 +44,6 @@ namespace Easv.PetShop.Infrastructure.SQLDB.Repositories
 
         public Owner DeleteOwner(int id)
         {
-            var petsToRemove = _ctx.Pets.Where(p => p.Owner.Id == id);
-            _ctx.RemoveRange(petsToRemove);
             var owner = _ctx.Remove(new Owner() {Id = id}).Entity;
             _ctx.SaveChanges();
             return owner;

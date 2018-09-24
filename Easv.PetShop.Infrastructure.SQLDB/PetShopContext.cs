@@ -16,8 +16,8 @@ namespace Easv.PetShop.Infrastructure.SQLDB
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
-            //en owner har mange pets og et pet har en owner -> hvis jeg sletter en kunde, så skriver den null i pets owner feld
-            modelbuilder.Entity<Owner>().HasMany(o => o.Pets).WithOne(p => p.Owner).OnDelete(DeleteBehavior.SetNull);
+            //en owner har mange pets og et pet har en owner -> hvis jeg sletter et pet, så skriver den null i pets owner feld
+            modelbuilder.Entity<Pet>().HasOne(p => p.Owner).WithMany(o => o.Pets).OnDelete(DeleteBehavior.SetNull);
 
         }
 
