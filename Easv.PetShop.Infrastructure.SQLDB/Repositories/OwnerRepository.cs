@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Easv.PetShop.Core.Domain_Service;
 using Easv.PetShop.Core.Entity;
 using Microsoft.EntityFrameworkCore;
@@ -17,9 +18,9 @@ namespace Easv.PetShop.Infrastructure.SQLDB.Repositories
 
         public Owner CreateOwner(Owner owner)
         {
-            var own = _ctx.Owners.Add(owner).Entity;
+            _ctx.Owners.Attach(owner).State = EntityState.Added;
             _ctx.SaveChanges();
-            return own;
+            return owner;
         }
 
         public IEnumerable<Owner> ReadOwner()
@@ -39,7 +40,9 @@ namespace Easv.PetShop.Infrastructure.SQLDB.Repositories
 
         public Owner UpdateOwner(Owner updateOwner)
         {
-            throw new System.NotImplementedException();
+            _ctx.Attach(updateOwner).State = EntityState.Modified;
+            _ctx.SaveChanges();
+            return updateOwner;
         }
 
         public Owner DeleteOwner(int id)

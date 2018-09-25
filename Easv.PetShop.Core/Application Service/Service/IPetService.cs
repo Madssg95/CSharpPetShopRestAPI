@@ -17,6 +17,7 @@ namespace Easv.PetShop.Core.Application_Service.Service
         List<Pet> SearchByType(string type);
         List<Pet> Get5CheapestPets();
         List<Pet> SortByPrice();
+        List<Pet> GetFilteredPets(Filter filter);
 
         //Update
         Pet UpdatePet(Pet pet);

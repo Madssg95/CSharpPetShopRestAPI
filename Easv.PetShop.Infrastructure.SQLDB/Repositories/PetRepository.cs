@@ -33,9 +33,15 @@ namespace Easv.PetShop.Infrastructure.SQLDB.Repositories
             return pet;
         }
 
-        public IEnumerable<Pet> ReadPets()
+        public IEnumerable<Pet> ReadPets(Filter filter)
         {
-            return _ctx.Pets;
+            if (filter == null)
+            {
+                return _ctx.Pets;
+            }
+
+            return _ctx.Pets.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage);
+
         }
 
         public Pet ReadByID(int id)
@@ -67,6 +73,11 @@ namespace Easv.PetShop.Infrastructure.SQLDB.Repositories
         public Pet DeletePet(int id)
         {
             throw new System.NotImplementedException();
+        }
+
+        public int Count()
+        {
+            return _ctx.Pets.Count();
         }
     }
 }

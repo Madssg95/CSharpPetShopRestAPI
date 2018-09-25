@@ -11,8 +11,9 @@ namespace Easv.PetShop.Core.Domain_Service
         Pet CreatePet(Pet pet);
 
         //Read
-        IEnumerable<Pet> ReadPets();
+        IEnumerable<Pet> ReadPets(Filter filter = null);
         Pet ReadByID(int id);
+        int Count();
 
         //Update
         Pet UpdatePet(Pet pet);

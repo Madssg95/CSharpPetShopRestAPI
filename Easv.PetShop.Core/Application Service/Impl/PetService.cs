@@ -58,24 +58,12 @@ namespace Easv.PetShop.Core.Application_Service.Impl
                 } 
             }
            
-            
-            _petRepo.CreatePet(pet);
-            return pet;
+            return _petRepo.CreatePet(pet);
         }
 
         public Pet NewPet(string name, string type, DateTime birthday, DateTime soldDate, string color, Owner previousOwner, double price)
         {
-            var newPet = new Pet()
-            {
-                Name = name,
-                Type = type,
-                Birthday = birthday,
-                SoldDate = soldDate,
-                Color = color,
-                Owner = previousOwner,
-                Price = price
-            };
-            return newPet;
+            return new Pet();
         }
 
         public Pet GetPetById(int id)
@@ -97,6 +85,21 @@ namespace Easv.PetShop.Core.Application_Service.Impl
         public List<Pet> GetPets()
         {
             return _petRepo.ReadPets().ToList();
+        }
+        
+        public List<Pet> GetFilteredPets(Filter filter)
+        {
+            if (filter.ItemsPerPage < 0 || filter.CurrentPage < 0)
+            {
+                throw new Exception("Please enter values that are at least 0");
+            }
+
+            if (((filter.CurrentPage -1) * filter.ItemsPerPage) > _petRepo.Count()) 
+            {
+                throw new Exception("The current page you have selected is to high.");
+            }
+            
+            return _petRepo.ReadPets(filter).ToList();
         }
 
         public List<Pet> SearchByType(string type)
@@ -120,46 +123,12 @@ namespace Easv.PetShop.Core.Application_Service.Impl
             return sortedByPrice.ToList();
         }
 
+        
+
         public Pet UpdatePet(Pet pet)
         {
-            var changedPet = _petRepo.ReadByID(pet.Id);
-            if (changedPet == null)
-            {
-                throw new Exception("The pet you searched for could not be found.");
-            }
-            
-            if (pet.Name != null)
-            {
-                changedPet.Name = pet.Name;
-            }
+            return _petRepo.UpdatePet(pet);
 
-            if (pet.Type != null)
-            {
-                changedPet.Type = pet.Type;
-            }
-
-            if (pet.Color != null)
-            {
-                changedPet.Color = pet.Color;
-            }
-            
-            if (pet.Birthday > pet.SoldDate)
-            {
-                throw new Exception("The sold date has to be after the birthday.");
-            }
-            
-            if (_petRepo.ReadByID(pet.Owner.Id) == null)
-            {
-                throw new Exception("Please enter a valid owner Id.");
-            }
-            
-            changedPet.Birthday = pet.Birthday;
-            changedPet.SoldDate = pet.SoldDate;
-            changedPet.Owner = pet.Owner;
-            changedPet.Price = pet.Price;
-            _petRepo.UpdatePet(changedPet);
-            return changedPet;
-            
         }
 
         public Pet DeletePet(int id)

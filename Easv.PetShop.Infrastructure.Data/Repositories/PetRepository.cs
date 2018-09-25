@@ -68,14 +68,14 @@ namespace Easv.PetShop.Infrastructure.Data.Repositories
             return matchingPet;
         }
 
-        public IEnumerable<Pet> ReadPets()
+        public IEnumerable<Pet> ReadPets(Filter filter)
         {
             return FakeDB.ListOfPets;
         }
 
         public Pet UpdatePet(Pet updatePet)
         {
-            var pets = ReadPets();
+            var pets = ReadPets(null);
             var pet = pets.FirstOrDefault(pet1 => pet1.Id == updatePet.Id);
             FakeDB.ListOfPets = pets;
             return pet;
