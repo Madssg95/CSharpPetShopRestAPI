@@ -49,14 +49,6 @@ namespace Easv.PetShop.Core.Application_Service.Impl
             {
                 throw new Exception("The sold date has to be after the birthday.");
             }
-
-            if (pet.Owner != null)
-            {
-                if (_petRepo.ReadByID(pet.Owner.Id) == null)
-                {
-                    throw new Exception("Please enter a valid owner Id.");
-                } 
-            }
            
             return _petRepo.CreatePet(pet);
         }
