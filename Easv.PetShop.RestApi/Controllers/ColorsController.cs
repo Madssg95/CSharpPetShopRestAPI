@@ -53,12 +53,12 @@ namespace Easv.PetShop.RestApi.Controllers
         
         // PUT api/values/5
         [HttpPut("{id}")]
-        public ActionResult<Owner> Put(int id, [FromBody] Owner owner)
+        public ActionResult<Owner> Put(int id, [FromBody] Color color)
         {
-            owner.Id = id;
+            color.Id = id;
             try
             {
-                return Ok(_colorService.UpdateOwner(owner));
+                return Ok(_colorService.UpdateColor(color.Id));
             }
             catch (Exception e)
             {
@@ -73,8 +73,8 @@ namespace Easv.PetShop.RestApi.Controllers
         {
             try
             {
-                _colorService.DeleteOwner(id);
-                return Ok($"The user with the Id: {id} was deleted.");
+                _colorService.DeleteColor(id);
+                return Ok($"The color with the Id: {id} was deleted.");
             }
             catch (Exception e)
             {
