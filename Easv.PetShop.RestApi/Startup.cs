@@ -23,34 +23,36 @@ namespace Easv.PetShop.RestApi
     public class Startup
     {
 
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        private IConfiguration _conf { get; }
+        private IHostingEnvironment _env { get; set; }
+        
+        public Startup(IConfiguration conf, IHostingEnvironment env)
         {
-            Configuration = configuration;
-            //Environment = env;
+            _conf = conf;
+            _env = env;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+            _conf = builder.Build();
         }
 
-        public IConfiguration Configuration { get; }
-        //public IHostingEnvironment Environment { get;  }
+        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //not a real sql db, but acts like one 
-            /*
-            services.AddDbContext<PetShopContext>(
-                opt => opt.UseInMemoryDatabase("database")
-                );
-             */
-             
-            services.AddDbContext<PetShopContext>(
-                opt => opt.UseSqlite("Data Source = PetShop.db")
-            );
-            
-            /*
-            // Azure SQL database:
-            services.AddDbContext<PetShopContext>(opt =>
-                     opt.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
-            */
+            if (_env.IsDevelopment())
+            {
+                services.AddDbContext<PetShopContext>(
+                    opt => opt.UseSqlite("Data Source=customerApp.db"));
+            }
+            else if (_env.IsProduction())
+            {
+                services.AddDbContext<PetShopContext>(
+                    opt => opt.UseSqlServer(_conf.GetConnectionString("DefaultConnection")));
+            }
 
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetService, PetService>();
@@ -80,10 +82,15 @@ namespace Easv.PetShop.RestApi
             }
             else
             {
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var ctx = scope.ServiceProvider.GetService<PetShopContext>();
+                    ctx.Database.EnsureCreated();
+                }
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
