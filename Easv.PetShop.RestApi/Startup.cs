@@ -59,6 +59,9 @@ namespace Easv.PetShop.RestApi
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
             services.AddScoped<IOwnerService, OwnerService>();
+            services.AddScoped<IColorRepository, ColorRepository>();
+            services.AddScoped<IColorService, ColorService>();
+            
 
             services.AddMvc().AddJsonOptions(options =>
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
@@ -78,7 +81,7 @@ namespace Easv.PetShop.RestApi
                 {
                     var ctx = scope.ServiceProvider.GetService<PetShopContext>();
                     
-                    //DBInitializor.SeedDB(ctx);
+                    DBInitializor.SeedDB(ctx);
                 }
             }
             else

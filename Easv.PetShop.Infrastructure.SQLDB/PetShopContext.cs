@@ -13,16 +13,20 @@ namespace Easv.PetShop.Infrastructure.SQLDB
         // two tables in the db with their columns and also the relation between these two tables
         public DbSet<Pet> Pets { get; set; }
         public DbSet<Owner> Owners { get; set; }
+        public DbSet<Color> Colors { get; set; }
+        public DbSet<PetColor> PetColors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
             //en owner har mange pets og et pet har en owner -> hvis jeg sletter et pet, så skriver den null i pets owner feld
             modelbuilder.Entity<Pet>().HasOne(p => p.Owner).WithMany(o => o.Pets).OnDelete(DeleteBehavior.SetNull);
 
+            modelbuilder.Entity<PetColor>().HasKey(pc => new {pc.ColorId, pc.PetId});
+
+            modelbuilder.Entity<PetColor>().HasOne<Pet>(pc => pc.Pet).WithMany(p => p.PetColors).HasForeignKey(pc => pc.PetId);
+            
+            modelbuilder.Entity<PetColor>().HasOne<Color>(pc => pc.Color).WithMany(c => c.PetColors).HasForeignKey(pc => pc.ColorId);
+
         }
-
-
-
-
     }
 }

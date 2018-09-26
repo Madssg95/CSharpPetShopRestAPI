@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Easv.PetShop.Core.Entity
@@ -21,5 +22,7 @@ namespace Easv.PetShop.Core.Entity
         public Owner Owner { get; set; }
 
         public double Price { get; set; }
+
+        public List<PetColor> PetColors { get; set; }
     }
 }
