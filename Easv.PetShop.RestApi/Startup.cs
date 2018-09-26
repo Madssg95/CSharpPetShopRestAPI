@@ -41,6 +41,7 @@ namespace Easv.PetShop.RestApi
         
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        //copied from Lars to get started with Azure
         public void ConfigureServices(IServiceCollection services)
         {
             if (_env.IsDevelopment())
@@ -51,7 +52,7 @@ namespace Easv.PetShop.RestApi
             else if (_env.IsProduction())
             {
                 services.AddDbContext<PetShopContext>(
-                    opt => opt.UseSqlServer(_conf.GetConnectionString("DefaultConnection")));
+                    opt => opt.UseSqlServer(_conf.GetConnectionString("defaultConnection")));
             }
 
             services.AddScoped<IPetRepository, PetRepository>();
