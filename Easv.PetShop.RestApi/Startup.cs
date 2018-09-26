@@ -78,7 +78,7 @@ namespace Easv.PetShop.RestApi
                 {
                     var ctx = scope.ServiceProvider.GetService<PetShopContext>();
                     
-                    DBInitializor.SeedDB(ctx);
+                    //DBInitializor.SeedDB(ctx);
                 }
             }
             else
