@@ -35,7 +35,7 @@ namespace Easv.PetShop.Infrastructure.SQLDB.Repositories
 
         public IEnumerable<Pet> ReadPets(Filter filter)
         {
-            if (filter == null)
+            if (filter.CurrentPage == 0 && filter.ItemsPerPage == 0)
             {
                 return _ctx.Pets;
             }

@@ -47,7 +47,7 @@ namespace Easv.PetShop.RestApi
             if (_env.IsDevelopment())
             {
                 services.AddDbContext<PetShopContext>(
-                    opt => opt.UseSqlite("Data Source=customerApp.db"));
+                    opt => opt.UseSqlite("Data Source=PetShop.db"));
             }
             else if (_env.IsProduction())
             {
