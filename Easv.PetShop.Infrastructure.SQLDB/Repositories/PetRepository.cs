@@ -46,7 +46,7 @@ namespace Easv.PetShop.Infrastructure.SQLDB.Repositories
 
         public Pet ReadByID(int id)
         {
-            return _ctx.Pets.Include(p => p.Owner).FirstOrDefault(p => p.Id == id);
+            return _ctx.Pets.Include(p => p.Owner).Include(p => p.Color).FirstOrDefault(p => p.Id == id);
         }
 
         public Pet UpdatePet(Pet pet)
@@ -72,7 +72,9 @@ namespace Easv.PetShop.Infrastructure.SQLDB.Repositories
 
         public Pet DeletePet(int id)
         {
-            throw new System.NotImplementedException();
+            var deletePet = _ctx.Remove(new Pet() {Id = id}).Entity;
+            _ctx.SaveChanges();
+            return deletePet;
         }
 
         public int Count()

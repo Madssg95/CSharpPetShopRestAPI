@@ -17,7 +17,7 @@ namespace Easv.PetShop.Core.Entity
 
         public DateTime SoldDate { get; set; }
 
-        public string Color { get; set; }
+        public Color Color { get; set; }
 
         public Owner Owner { get; set; }
 

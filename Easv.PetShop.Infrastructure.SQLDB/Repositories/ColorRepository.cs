@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Easv.PetShop.Core.Domain_Service;
@@ -18,9 +19,15 @@ namespace Easv.PetShop.Infrastructure.SQLDB.Repositories
         
         public Color CreateColor(Color color)
         {
+            var existingColor = _ctx.Colors.FirstOrDefault(c => c.PetColor == color.PetColor);
+
+            if (existingColor != null)
+            {
+                throw new Exception($"The color you have added does already exist and has the Id: {existingColor.Id}");
+            }
             _ctx.Attach(color).State = EntityState.Added;
             _ctx.SaveChanges();
-            return color;
+            return color; 
         }
 
         public IEnumerable<Color> ReadColors()
@@ -40,7 +47,9 @@ namespace Easv.PetShop.Infrastructure.SQLDB.Repositories
 
         public Color DeleteColor(int id)
         {
-            throw new System.NotImplementedException();
+            var deleteColor = _ctx.Remove(new Color() {Id = id}).Entity;
+            _ctx.SaveChanges();
+            return deleteColor;
         }
     }
 }

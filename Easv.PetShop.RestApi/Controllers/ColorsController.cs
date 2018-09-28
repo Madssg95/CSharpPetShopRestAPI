@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Easv.PetShop.RestApi.Controllers
 {
-    public class ColorsController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ColorsController : ControllerBase
     {
         private readonly IColorService _colorService;
 
@@ -24,7 +26,7 @@ namespace Easv.PetShop.RestApi.Controllers
         
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<Owner> Get(int id)
+        public ActionResult<Color> Get(int id)
         {
             try
             {
@@ -38,7 +40,7 @@ namespace Easv.PetShop.RestApi.Controllers
         
         // POST api/values
         [HttpPost]
-        public ActionResult<Owner> Post([FromBody] Color color)
+        public ActionResult<Color> Post([FromBody] Color color)
         {
             try
             {
@@ -53,7 +55,7 @@ namespace Easv.PetShop.RestApi.Controllers
         
         // PUT api/values/5
         [HttpPut("{id}")]
-        public ActionResult<Owner> Put(int id, [FromBody] Color color)
+        public ActionResult<Color> Put(int id, [FromBody] Color color)
         {
             color.Id = id;
             try
@@ -69,7 +71,7 @@ namespace Easv.PetShop.RestApi.Controllers
         
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public ActionResult<Owner> Delete(int id)
+        public ActionResult<Color> Delete(int id)
         {
             try
             {

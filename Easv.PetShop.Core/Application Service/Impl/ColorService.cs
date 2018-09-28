@@ -7,6 +7,7 @@ using Easv.PetShop.Core.Entity;
 
 namespace Easv.PetShop.Core.Application_Service.Impl
 {
+    
     public class ColorService : IColorService
     {
         private readonly IColorRepository _colorRepository;
@@ -32,7 +33,13 @@ namespace Easv.PetShop.Core.Application_Service.Impl
 
         public Color ReadColorById(int id)
         {
-            throw new System.NotImplementedException();
+            var foundColor = _colorRepository.ReadColorById(id);
+            if (foundColor == null)
+            {
+                throw new ArgumentException("We could not find the color you searched for.");
+            }
+
+            return foundColor;
         }
 
         public Color UpdateColor(int id)
