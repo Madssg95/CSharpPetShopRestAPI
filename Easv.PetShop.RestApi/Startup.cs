@@ -102,7 +102,7 @@ namespace Easv.PetShop.RestApi
                 app.UseHsts();
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             
             //Enable CORS
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod());
