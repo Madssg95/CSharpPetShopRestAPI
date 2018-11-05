@@ -8,6 +8,7 @@ using Easv.PetShop.Core.Application_Service.Service;
 using Easv.PetShop.Core.Domain_Service;
 using Easv.PetShop.Infrastructure.SQLDB;
 using Easv.PetShop.Infrastructure.SQLDB.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 
 namespace Easv.PetShop.RestApi
@@ -36,6 +38,7 @@ namespace Easv.PetShop.RestApi
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             _conf = builder.Build();
+           
         }
 
         
@@ -44,7 +47,12 @@ namespace Easv.PetShop.RestApi
         //copied from Lars to get started with Azure
         public void ConfigureServices(IServiceCollection services)
         {
-            if (_env.IsDevelopment())
+           
+            
+            //Add CORS
+            services.AddCors();
+
+        if (_env.IsDevelopment())
             {
                 services.AddDbContext<PetShopContext>(
                     opt => opt.UseSqlite("Data Source=PetShop.db"));
@@ -95,6 +103,11 @@ namespace Easv.PetShop.RestApi
             }
 
             //app.UseHttpsRedirection();
+            
+            //Enable CORS
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod());
+            //app.UseCors(b => b.WithOrigins("http://localhost:5000").AllowAnyMethod());
+            
             app.UseMvc();
         }
     }

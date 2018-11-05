@@ -20,9 +20,17 @@ namespace Easv.PetShop.RestApi.Controllers
         
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Owner>> Get()
+        public ActionResult<IEnumerable<Owner>> Get(Filter filter)
         {
-            return _ownerService.GetOwners();
+            try
+            {
+                return Ok(_ownerService.GetOwners(filter));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
         
         // GET api/values/5

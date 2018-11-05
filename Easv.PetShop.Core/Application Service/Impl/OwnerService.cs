@@ -52,9 +52,9 @@ namespace Easv.PetShop.Core.Application_Service.Impl
         }
         */
 
-        public List<Owner> GetOwners()
+        public List<Owner> GetOwners(Filter filter)
         {
-            return _ownerRepository.ReadOwner().ToList();
+            return _ownerRepository.ReadOwner(filter).ToList();
         }
 
         public Owner GetOwnerById(int id)
@@ -109,10 +109,12 @@ namespace Easv.PetShop.Core.Application_Service.Impl
 
         public Owner DeleteOwner(int id)
         {
+            /*
             if (_ownerRepository.DeleteOwner(id) == null || id < 1)
             {
                 throw new Exception($"The Id {id} was not found.");
             }
+            */
             return _ownerRepository.DeleteOwner(id);
         }
     }

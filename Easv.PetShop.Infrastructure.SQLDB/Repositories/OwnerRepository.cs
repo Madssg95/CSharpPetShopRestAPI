@@ -23,9 +23,47 @@ namespace Easv.PetShop.Infrastructure.SQLDB.Repositories
             return owner;
         }
 
-        public IEnumerable<Owner> ReadOwner()
+        public IEnumerable<Owner> ReadOwner(Filter filter)
         {
-            return _ctx.Owners;
+            if (filter.CurrentPage == 0 && filter.ItemsPerPage == 0)
+            {
+                return _ctx.Owners;
+            }
+            
+            if (filter.SortBy.ToLower() == "firstname")
+            {
+                if (filter.SortOrder.ToLower() == "ascending")
+                {
+                    return _ctx.Owners.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage)
+                        .OrderBy(p => p.FirstName);
+                }
+                return _ctx.Owners.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage)
+                    .OrderByDescending(p => p.FirstName);
+            }
+
+            if (filter.SortBy.ToLower() == "lastname")
+            {
+                if (filter.SortOrder.ToLower() == "ascending")
+                {
+                    return _ctx.Owners.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage)
+                        .OrderBy(p => p.LastName);
+                }
+                return _ctx.Owners.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage)
+                    .OrderByDescending(p => p.LastName);
+            }
+
+            if (filter.SortBy.ToLower() == "addrress")
+            {
+                if (filter.SortOrder.ToLower() == "ascending")
+                {
+                    return _ctx.Owners.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage)
+                        .OrderBy(p => p.Address);
+                }
+                return _ctx.Owners.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage)
+                    .OrderByDescending(p => p.Address);
+            }
+
+            return _ctx.Owners.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage);
         }
 
         public Owner ReadOwnerById(int id)

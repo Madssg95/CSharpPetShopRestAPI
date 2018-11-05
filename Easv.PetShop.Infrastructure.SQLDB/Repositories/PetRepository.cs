@@ -40,6 +40,61 @@ namespace Easv.PetShop.Infrastructure.SQLDB.Repositories
                 return _ctx.Pets;
             }
 
+            if (filter.SortBy.ToLower() == "type")
+            {
+                if (filter.SortOrder.ToLower() == "ascending")
+                {
+                    return _ctx.Pets.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage)
+                        .OrderBy(p => p.Type);
+                }
+                return _ctx.Pets.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage)
+                        .OrderByDescending(p => p.Type);
+            }
+
+            if (filter.SortBy.ToLower() == "price")
+            {
+                if (filter.SortOrder.ToLower() == "ascending")
+                {
+                    return _ctx.Pets.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage)
+                        .OrderBy(p => p.Price);
+                }
+                return _ctx.Pets.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage)
+                    .OrderByDescending(p => p.Type);
+            }
+
+            if (filter.SortBy.ToLower() == "age")
+            {
+                if (filter.SortOrder.ToLower() == "ascending")
+                {
+                    return _ctx.Pets.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage)
+                        .OrderBy(p => p.Birthday);
+                }
+                return _ctx.Pets.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage)
+                    .OrderByDescending(p => p.Birthday);
+            }
+            
+            if (filter.SortBy.ToLower() == "solddate")
+            {
+                if (filter.SortOrder.ToLower() == "ascending")
+                {
+                    return _ctx.Pets.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage)
+                        .OrderBy(p => p.SoldDate);
+                }
+                return _ctx.Pets.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage)
+                    .OrderByDescending(p => p.SoldDate);
+            }
+            
+            if (filter.SortBy.ToLower() == "name")
+            {
+                if (filter.SortOrder.ToLower() == "ascending")
+                {
+                    return _ctx.Pets.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage)
+                        .OrderBy(p => p.Name);
+                }
+                return _ctx.Pets.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage)
+                    .OrderByDescending(p => p.Name);
+            }
+
             return _ctx.Pets.Skip((filter.CurrentPage - 1) * filter.ItemsPerPage).Take(filter.ItemsPerPage);
 
         }
