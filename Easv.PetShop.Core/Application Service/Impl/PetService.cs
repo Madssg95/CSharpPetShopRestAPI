@@ -30,10 +30,6 @@ namespace Easv.PetShop.Core.Application_Service.Impl
                 throw new Exception("Please enter a type.");
             }
 
-            if (pet.Color == null)
-            {
-                throw new Exception("Please enter a color."); 
-            }
 
             if (pet.Price < 0)
             {
