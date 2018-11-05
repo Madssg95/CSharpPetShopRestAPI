@@ -105,7 +105,7 @@ namespace Easv.PetShop.RestApi
             app.UseHttpsRedirection();
             
             //Enable CORS
-            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod());
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             //app.UseCors(b => b.WithOrigins("http://localhost:5000").AllowAnyMethod());
             
             app.UseMvc();
