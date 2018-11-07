@@ -37,6 +37,12 @@ namespace Easv.PetShop.Core.Application_Service.Impl
             }
             return _ownerRepository.CreateOwner(owner);
         }
+        
+
+        public List<Owner> GetFilteredOwners(Filter filter)
+        {
+            return _ownerRepository.ReadOwner(filter).ToList();
+        }
 
         /*
          public Owner NewOwner(string firstname, string lastname, string address, int phoneNumber)
@@ -52,9 +58,9 @@ namespace Easv.PetShop.Core.Application_Service.Impl
         }
         */
 
-        public List<Owner> GetOwners(Filter filter)
+        public List<Owner> GetOwners()
         {
-            return _ownerRepository.ReadOwner(filter).ToList();
+            return _ownerRepository.ReadOwner().ToList();
         }
 
         public Owner GetOwnerById(int id)

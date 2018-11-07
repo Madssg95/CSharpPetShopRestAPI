@@ -9,7 +9,7 @@ namespace Easv.PetShop.Core.Domain_Service
         Owner CreateOwner(Owner owner);
 
         //Read
-        IEnumerable<Owner> ReadOwner(Filter filter);
+        IEnumerable<Owner> ReadOwner(Filter filter = null);
         Owner ReadOwnerById(int id);
         Owner ReadOwnerByIdIncludePets(int id);
 

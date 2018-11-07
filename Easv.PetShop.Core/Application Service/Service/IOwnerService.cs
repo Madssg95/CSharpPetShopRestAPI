@@ -11,7 +11,8 @@ namespace Easv.PetShop.Core.Application_Service.Service
         //Owner NewOwner(string firstname, string lastname, string address, int phoneNumber);
 
         //Read
-        List<Owner> GetOwners(Filter filter);
+        List<Owner> GetOwners();
+        List<Owner> GetFilteredOwners(Filter filter);
         Owner GetOwnerById(int id);
         Owner GetOwnerByIdIncludePets(int id);
 

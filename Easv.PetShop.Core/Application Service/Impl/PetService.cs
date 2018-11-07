@@ -116,7 +116,6 @@ namespace Easv.PetShop.Core.Application_Service.Impl
         public Pet UpdatePet(Pet pet)
         {
             return _petRepo.UpdatePet(pet);
-
         }
 
         public Pet DeletePet(int id)
