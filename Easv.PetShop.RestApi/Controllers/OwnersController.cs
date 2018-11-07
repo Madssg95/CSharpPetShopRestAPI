@@ -20,11 +20,11 @@ namespace Easv.PetShop.RestApi.Controllers
         
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Owner>> Get(Filter filter)
+        public ActionResult<IEnumerable<Owner>> Get([FromQuery] Filter filter)
         {
             try
             {
-                return Ok(_ownerService.GetOwners(filter));
+                return Ok(_ownerService.GetFilteredOwners(filter));
             }
             catch (Exception e)
             {
