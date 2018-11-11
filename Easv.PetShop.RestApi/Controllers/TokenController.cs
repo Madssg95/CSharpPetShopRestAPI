@@ -15,6 +15,7 @@ using Easv.PetShop.Core.Domain_Service;
 namespace Easv.PetShop.RestApi.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class TokenController : Controller
     {
         private readonly IUserRepository<User> repository;
