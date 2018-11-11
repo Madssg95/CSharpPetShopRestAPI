@@ -106,19 +106,6 @@ namespace Easv.PetShop.Infrastructure.SQLDB.Repositories
 
         public Pet UpdatePet(Pet pet)
         {
-            /*
-             if (pet.Owner != null && 
-                _ctx.ChangeTracker.Entries<Owner>()
-                    .FirstOrDefault(ce => ce.Entity.Id == pet.Owner.Id) == null)
-            {
-                _ctx.Attach(pet.Owner);
-            }
-            else
-            {
-                _ctx.Entry(pet).Reference(p => p.Owner).IsModified = true;
-            }
-            var newPet = _ctx.Update(pet).Entity;
-            */
             _ctx.Attach(pet).State = EntityState.Modified;
             _ctx.Entry(pet).Reference(p => p.Owner).IsModified = true;
             _ctx.SaveChanges();

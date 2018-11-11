@@ -1,41 +1,51 @@
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Easv.PetShop.Core.Domain_Service;
 using Easv.PetShop.Core.Entity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Easv.PetShop.Core.Application_Service.Impl;
+using Easv.PetShop.Infrastructure.SQLDB;
 
 namespace Easv.PetShop.Infrastructure.SQLDB.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository<User>
     {
-        readonly PetShopContext _ctx;
+        private readonly PetShopContext db;
 
-        public UserRepository(PetShopContext ctx)
+        public UserRepository(PetShopContext context)
         {
-            _ctx = ctx;
-        }
-        
-        public User CreateUser(User user)
-        {
-            throw new System.NotImplementedException();
+            db = context;
         }
 
-        public IEnumerable<User> ReadUsers()
+        public IEnumerable<User> GetAll()
         {
-            return _ctx.Users;
+            return db.Users.ToList();
         }
 
-        public User ReadByID(int id)
+        public User Get(long id)
         {
-            throw new System.NotImplementedException();
+            return db.Users.FirstOrDefault(b => b.Id == id);
         }
 
-        public User UpdateUser(User user)
+        public void Add(User entity)
         {
-            throw new System.NotImplementedException();
+            db.Users.Add(entity);
+            db.SaveChanges();
         }
 
-        public User DeleteUser(int id)
+        public void Edit(User entity)
         {
-            throw new System.NotImplementedException();
+            db.Entry(entity).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        public void Remove(long id)
+        {
+            var item = db.Users.FirstOrDefault(b => b.Id == id);
+            db.Users.Remove(item);
+            db.SaveChanges();
         }
     }
 }

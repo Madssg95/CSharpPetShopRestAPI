@@ -1,21 +1,15 @@
+using System;
 using System.Collections.Generic;
-using Easv.PetShop.Core.Entity;
+using System.Text;
 
-namespace Easv.PetShop.Core.Domain_Service
+namespace Easv.PetShop.Core.Application_Service.Impl
 {
-    public interface IUserRepository
+    public interface IUserRepository<T>
     {
-        //Create
-        User CreateUser(User user);
-
-        //Read
-        IEnumerable<User> ReadUsers();
-        User ReadByID(int id);
-
-        //Update
-        User UpdateUser(User user);
-
-        //Delete
-        User DeleteUser(int id);
+        IEnumerable<T> GetAll();
+        T Get(long id);
+        void Add(T entity);
+        void Edit(T entity);
+        void Remove(long id);
     }
 }
