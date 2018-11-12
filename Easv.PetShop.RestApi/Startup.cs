@@ -119,7 +119,7 @@ namespace Easv.PetShop.RestApi
                     var ctx = scope.ServiceProvider.GetService<PetShopContext>();
                     ctx.Database.EnsureCreated();
                     
-                    DBInitializor.SeedDB(ctx);
+                    //DBInitializor.SeedDB(ctx);
                 }
                 app.UseHsts();
             }
