@@ -8,7 +8,7 @@ namespace Easv.PetShop.Infrastructure.SQLDB
     {
         public static void SeedDB(PetShopContext ctx)
         {
-            /*
+            
             ctx.Database.EnsureDeleted();
             ctx.Database.EnsureCreated();
             
@@ -59,7 +59,7 @@ namespace Easv.PetShop.Infrastructure.SQLDB
                 Owner = owner2,
                 Price = 200
             }).Entity;
-            */
+            
             // Create two users with hashed and salted passwords
             string password = "1234";
             byte[] passwordHashJoe, passwordSaltJoe, passwordHashAnn, passwordSaltAnn;
