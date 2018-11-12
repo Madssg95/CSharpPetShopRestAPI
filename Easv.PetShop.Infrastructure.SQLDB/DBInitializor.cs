@@ -9,8 +9,8 @@ namespace Easv.PetShop.Infrastructure.SQLDB
         public static void SeedDB(PetShopContext ctx)
         {
             
-            ctx.Database.EnsureDeleted();
-            ctx.Database.EnsureCreated();
+            //ctx.Database.EnsureDeleted();
+            //ctx.Database.EnsureCreated();
             
             var owner1 = ctx.Owners.Add(new Owner()
             {
