@@ -60,6 +60,8 @@ namespace Easv.PetShop.Infrastructure.SQLDB
                 Price = 200
             }).Entity;
             
+            
+            
             // Create two users with hashed and salted passwords
             string password = "1234";
             byte[] passwordHashJoe, passwordSaltJoe, passwordHashAnn, passwordSaltAnn;
