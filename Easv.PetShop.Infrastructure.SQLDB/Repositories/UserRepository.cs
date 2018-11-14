@@ -10,7 +10,7 @@ using Easv.PetShop.Infrastructure.SQLDB;
 
 namespace Easv.PetShop.Infrastructure.SQLDB.Repositories
 {
-    public class UserRepository : IUserRepository<User>
+    public class UserRepository : IUserRepository
     {
         private readonly PetShopContext db;
 
@@ -29,23 +29,26 @@ namespace Easv.PetShop.Infrastructure.SQLDB.Repositories
             return db.Users.FirstOrDefault(b => b.Id == id);
         }
 
-        public void Add(User entity)
+        public User Add(User entity)
         {
             db.Users.Add(entity);
             db.SaveChanges();
+            return entity;
         }
 
-        public void Edit(User entity)
+        public User Edit(User entity)
         {
             db.Entry(entity).State = EntityState.Modified;
             db.SaveChanges();
+            return entity;
         }
 
-        public void Remove(long id)
+        public User Remove(long id)
         {
             var item = db.Users.FirstOrDefault(b => b.Id == id);
             db.Users.Remove(item);
             db.SaveChanges();
+            return item;
         }
     }
 }

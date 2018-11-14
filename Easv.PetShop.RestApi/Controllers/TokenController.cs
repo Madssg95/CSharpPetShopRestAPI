@@ -18,18 +18,18 @@ namespace Easv.PetShop.RestApi.Controllers
     [ApiController]
     public class TokenController : ControllerBase
     {
-        private readonly IUserRepository<User> repository;
+        private readonly IUserRepository _repository;
 
-        public TokenController(IUserRepository<User> repos)
+        public TokenController(IUserRepository repos)
         {
-            repository = repos;
+            _repository = repos;
         }
 
 
         [HttpPost]
         public IActionResult Login([FromBody]LoginInputModel model)
         {
-            var user = repository.GetAll().FirstOrDefault(u => u.Username == model.Username);
+            var user = _repository.GetAll().FirstOrDefault(u => u.Username == model.Username);
 
             // check if username exists
             if (user == null)

@@ -9,8 +9,8 @@ namespace Easv.PetShop.Infrastructure.SQLDB
         public static void SeedDB(PetShopContext ctx)
         {
             
-            //ctx.Database.EnsureDeleted();
-            //ctx.Database.EnsureCreated();
+            ctx.Database.EnsureDeleted();
+            ctx.Database.EnsureCreated();
             
             var owner1 = ctx.Owners.Add(new Owner()
             {
@@ -89,9 +89,6 @@ namespace Easv.PetShop.Infrastructure.SQLDB
 
         }
 
-        
-        
-        
         // This method computes a hashed and salted password using the HMACSHA512 algorithm.
         // The HMACSHA512 class computes a Hash-based Message Authentication Code (HMAC) using 
         // the SHA512 hash function. When instantiated with the parameterless constructor (as

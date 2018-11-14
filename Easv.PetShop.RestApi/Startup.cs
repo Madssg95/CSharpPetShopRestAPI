@@ -88,7 +88,8 @@ namespace Easv.PetShop.RestApi
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddScoped<IColorRepository, ColorRepository>();
             services.AddScoped<IColorService, ColorService>();
-            services.AddScoped<IUserRepository<User>, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
             
 
             services.AddMvc().AddJsonOptions(options =>
