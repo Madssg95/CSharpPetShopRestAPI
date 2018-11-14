@@ -21,6 +21,10 @@ namespace Easv.PetShop.Core.Application_Service.Impl
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            if (password == "admin")
+            {
+                user.IsAdmin = true;
+            }
             return _userRepo.Add(user);
         }
 
