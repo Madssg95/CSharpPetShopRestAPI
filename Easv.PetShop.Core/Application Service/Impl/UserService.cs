@@ -17,7 +17,7 @@ namespace Easv.PetShop.Core.Application_Service.Impl
         public User AddUser(User user)
         {
             byte[] passwordHash, passwordSalt;
-            var password = System.Text.Encoding.Default.GetString(user.PasswordHash);
+            var password = System.Text.Encoding.UTF8.GetString(user.PasswordHash);
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
