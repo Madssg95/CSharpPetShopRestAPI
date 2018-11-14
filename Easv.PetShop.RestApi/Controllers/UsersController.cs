@@ -52,8 +52,12 @@ namespace Easv.PetShop.RestApi.Controllers
 
         // POST api/values
         [HttpPost]
-        public ActionResult<User> Post([FromBody] User user)
+        public ActionResult<User> Post([FromBody] LoginInputModel model)
         {
+            User user = new User
+            {
+                Username = model.Username, PasswordHash = System.Text.Encoding.UTF8.GetBytes(model.Password)
+            };
             try
             {
                 return _userService.AddUser(user);
