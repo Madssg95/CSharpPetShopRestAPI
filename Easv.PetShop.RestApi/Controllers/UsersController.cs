@@ -54,13 +54,13 @@ namespace Easv.PetShop.RestApi.Controllers
         [HttpPost]
         public ActionResult<User> Post([FromBody] LoginInputModel model)
         {
-            User user = new User
+            var user = new User
             {
-                Username = model.Username, PasswordHash = System.Text.Encoding.UTF8.GetBytes(model.Password)
+                Username = model.Username
             };
             try
             {
-                return _userService.AddUser(user);
+                return _userService.AddUser(user, model.Password);
             }
             catch (Exception e)
             {

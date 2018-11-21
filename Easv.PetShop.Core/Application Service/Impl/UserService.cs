@@ -6,6 +6,7 @@ using Easv.PetShop.Core.Entity;
 namespace Easv.PetShop.Core.Application_Service.Impl
 {
     public class UserService : IUserService
+    
     {
         private readonly IUserRepository _userRepo;
         
@@ -14,11 +15,9 @@ namespace Easv.PetShop.Core.Application_Service.Impl
             _userRepo = userRepository;
         }
         
-        public User AddUser(User user)
+        public User AddUser(User user, string password)
         {
-            byte[] passwordHash, passwordSalt;
-            var password = System.Text.Encoding.UTF8.GetString(user.PasswordHash);
-            CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            CreatePasswordHash(password, out var passwordHash, out var passwordSalt);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
             if (password == "admin")

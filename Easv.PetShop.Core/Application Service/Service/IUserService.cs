@@ -6,7 +6,7 @@ namespace Easv.PetShop.Core.Application_Service.Service
     public interface IUserService
     {
         //Create
-        User AddUser(User user);
+        User AddUser(User user, string password);
         //Owner NewOwner(string firstname, string lastname, string address, int phoneNumber);
 
         //Read
