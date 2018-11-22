@@ -134,6 +134,7 @@ namespace Easv.PetShop.RestApi
             app.UseAuthentication();
 
             
+            //Using Mvc
             app.UseMvc();
         }
     }
