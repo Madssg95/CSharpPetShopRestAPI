@@ -133,7 +133,7 @@ namespace Easv.PetShop.RestApi
             
             app.UseAuthentication();
 
-            
+            //Mvc
             app.UseMvc();
         }
     }
